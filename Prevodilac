@@ -1,4 +1,4 @@
-word = "njNJNJ LJLJLJLJLJLJ, DŽDŽDŽDŽDŽDŽDŽDŽ, NJNJNJNJNJNJNJNJ DŽNJLJDŽ 108"
+word = "džnjljNJ LJLJLJLJLJLJ, DŽDŽDŽDŽDŽDŽDŽDŽ, NJNJNJNJNJNJNJNJ DŽNJLJDŽ 108"
 def dalje(lst,slovo):
     lst.pop(-1)
     lst.append(slovo)
@@ -6,25 +6,25 @@ def lat_u_cir(word):
     symbols = (u"abvgdđežzijklmnoprstćufhcčšABVGDĐEŽZIJKLMNOPRSTĆUFHCČŠ",
     u"абвгдђежзијклмнопрстћуфхцчшАБВГДЂЕЖЗИЈКЛМНОПРСТЋУФХЦЧШ",)
     tr = {ord(a):ord(b) for a, b in zip(*symbols)}
-
     rslt = [x for x in word.translate(tr)]
     
     new_rslt = []
-    
     for x in rslt:
         if rslt.index(x)==0:
             new_rslt.append(x)
             continue
         else:  
-            if x =="Ј" or x=="j":
-                if new_rslt[-1] =="Н":
-                    x="Њ"
-                elif new_rslt[-1]=="н":
-                    x="њ"
-                elif new_rslt[-1]=="Л":
-                    x="Љ"
-                elif new_rslt[-1]=="л":
-                    x="љ"
+            if x in ["Ј","ј"]:
+                if new_rslt[-1] in ["Н","н"]:
+                    if new_rslt[-1]=="Н":
+                        x="Њ"
+                    else:
+                        x="њ"
+                if new_rslt[-1] in ["Л","л"]:
+                    if new_rslt[-1]=="Л":
+                        x="Љ"
+                    else:
+                        x="љ"
                 dalje(new_rslt,x)
                 continue
             if x in["Ж","ж"] and new_rslt[-1]in ["Д","д"]:
@@ -36,6 +36,6 @@ def lat_u_cir(word):
                 continue
             new_rslt.append(x)
     result = "".join(new_rslt)
-    print(result)
+    return result
 
 rez = lat_u_cir(word)
